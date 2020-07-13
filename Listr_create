@@ -1,0 +1,81 @@
+--should id auto increment?
+CREATE TABLE IF NOT EXISTS Room(
+    id INTEGER,
+    name TEXT,
+    users_id INTEGER,
+    list_id INTEGER
+);
+--pivot table
+CREATE TABLE IF NOT EXISTS Users(
+    id INTEGER,
+    room_id INTEGER,
+    user_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS  User(
+    id INTEGER,
+    name TEXT
+    --other_info
+
+);
+
+CREATE TABLE IF NOT EXISTS List(
+    id INTEGER,
+    room_id INTEGER,
+    item_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS Item(
+    id INTEGER,
+    name TEXT,
+    price TEXT -- Includes the currency as follows: "$40"
+)
+
+________________________________________________________________________________________________________________________
+DROP TABLE IF EXISTS Item;
+DROP TABLE IF EXISTS room_item;
+DROP TABLE IF EXISTS Room;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS room_user;
+
+CREATE TABLE IF NOT EXISTS Room(
+    id INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT UNIQUE
+    --users_id INTEGER,
+    --list_id INTEGER
+);
+
+
+CREATE TABLE IF NOT EXISTS room_user(
+    room_id INTEGER,
+    user_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS  User(
+    id INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT UNIQUE
+    --other_info
+
+);
+
+CREATE TABLE IF NOT EXISTS room_item(
+    room_id INTEGER,
+    item_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS Item(
+    id INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT,
+    price TEXT -- Includes the currency as follows: "$40"
+    --addedBy INTEGER -- links to user ID
+);
+-- INSERT INTO user (id, name)
+-- VALUES (0, 'vexedkiller0071');
+--
+-- INSERT INTO Users (id, room_id, user_id)
+-- VALUES ()
+
+SELECT  U.*
+FROM    User AS U
+        INNER JOIN room_user AS RU ON RU.user_id = U.Id
+WHERE   RU.room_id = 2
